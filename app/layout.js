@@ -25,7 +25,8 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
           <Navbar/>
-        <div className="min-h-[82vh]  bg-slate-950 bg-[radial-gradient(circle_500px_at_50%_200px,#3e3e3e,transparent)]">
+        <div className="min-h-[82vh] bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px),radial-gradient(circle_500px_at_50%_200px,#C9EBFF,transparent)] bg-size-[6rem_4rem]">
+
         {children}
           </div>
         <Footer/>
