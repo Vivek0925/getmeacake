@@ -8,7 +8,8 @@ const Navbar = () => {
             <li>Home</li>
             <li>About</li>
             <li>Contact</li>
-            <li>Login</li>
+            <li className='border px-2'>Find a Creator</li>
+            <li className='border px-2'>Login</li>
         </ul>
     </nav>
   )
