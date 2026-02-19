@@ -13,7 +13,7 @@ const Navbar = () => {
 
   return (
     <nav className='fixed top-0 left-0 w-full  bg-slate-800/30 backdrop-blur-md transition-all duration-300 text-white flex justify-around h-16 items-center'>
-      <div className="logo text-2xl font-extrabold">Get-Me-A-Cake</div>
+      <Link href="/" className="logo text-2xl font-extrabold">Get-Me-A-Cake</Link>
       <ul className='flex justify-between gap-6'>
         {/* <li>Home</li> */}
         {/* <li>About</li>
@@ -25,6 +25,7 @@ const Navbar = () => {
         {session && (
           <>
             <button onClick={showdropdown ? () => setShowdropdown(false) : () => setShowdropdown(true)}
+            onBlur={() => {setTimeout(() => setShowdropdown(false), 200)}}
               id="dropdownDefaultButton"
               data-dropdown-toggle="dropdown"
               className="inline-flex items-center rounded-2xl  bg-linear-to-br from-purple-600 justify-center text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 dark:bg-blue-600 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 mx-2 focus:outline-none"
@@ -59,24 +60,24 @@ const Navbar = () => {
                 aria-labelledby="dropdownDefaultButton"
               >
                 <li>
-                  <a href='/dashboard' className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
+                  <Link href='/dashboard' className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
                     Dashboard
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
+                  <Link href='/settings' className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
                     Settings
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
+                  <Link href='/earnings' className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
                     Earnings
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a onClick={()=>{signOut()}} className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
+                  <Link onClick={()=>{signOut()}} href='/logout' className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
                     Sign out
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
