@@ -34,20 +34,29 @@ export async function Username({ params }) {
             <ul className='mx-5'>
               <li className='flex gap-3 my-3 items-center'>
                 <img width={37} src="avatar.gif" alt="" />
-                akash donated 50$ with a message ""
+                <span>
+                  akash donated <span className='font-bold'>50$</span> with a message ""
+                </span>
               </li>
               <li className='flex gap-3 my-3 items-center'>
                 <img width={37} src="avatar.gif" alt="" />
-                akash donated 50$ with a message ""
+                <span>
+                  akash donated <span className='font-bold'>50$</span> with a message ""
+                </span>
               </li>
               <li className='flex gap-3 my-3 items-center'>
                 <img width={37} src="avatar.gif" alt="" />
-                akash donated 50$ with a message ""
+                <span>
+                  akash donated <span className='font-bold'>50$</span> with a message ""
+                </span>
               </li>
               <li className='flex gap-3 my-3 items-center'>
                 <img width={37} src="avatar.gif" alt="" />
-                akash donated 50$ with a message ""
+                <span>
+                  akash donated <span className='font-bold'>50$</span> with a message ""
+                </span>
               </li>
+             
             </ul>
           </div>
 
