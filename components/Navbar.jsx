@@ -64,15 +64,9 @@ const Navbar = () => {
                     Dashboard
                   </Link>
                 </li>
+               
                 <li>
-                  <Link href='/settings' className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
-                    Settings
-                  </Link>
-                </li>
-                <li>
-                  <Link href='/earnings' className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
-                    Earnings
-                  </Link>
+                  <Link href={`/${session.user.name}`} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Your Page</Link>
                 </li>
                 <li>
                   <Link onClick={()=>{signOut()}} href='/logout' className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
