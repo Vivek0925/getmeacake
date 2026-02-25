@@ -6,7 +6,7 @@ export async function Username({ params }) {
   return (
     <>
       <div className="cover w-full text-black">
-        <img className='w-full h-[380]' src="https://i.pinimg.com/originals/d0/bf/c7/d0bfc76da6de38f91bcec23efe85082a.gif" alt="" />
+        <img className='w-full h-[380]' src="https://i.pinimg.com/originals/d0/bf/c7/d0bfc76da6de38f91bcec23efe85082a.gif" alt="img loading" />
 
         <div className=' absolute bottom-[40%] right-[46%] '>
           <img width={120} height={120} className='rounded-full' src="pfp.jpg" alt="" />
