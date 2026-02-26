@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
           <Navbar/>
         <div className="min-h-[91vh]  bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]">
 
-          <div className="absolute top-0 z-[-2] h-screen  rotate-180 transform"></div>
+          <div className="absolute top-0 z-[-2] h-screen rotate-180 transform"></div>
 
         {children}
           </div>

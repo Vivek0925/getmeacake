@@ -34,6 +34,16 @@ export const authoptions = NextAuth({
     //   from: "NextAuth.js <no-reply@example.com>",
     // }),
   ],
+
+callbacks: {
+  async signIn({ user, account, profile, email, credentials }) {
+    if(account.provider === "google" || account.provider === "github"){
+      const client = await mongoose.connect(process.env.MONGODB_URI);
+    }
+    return true;
+  }
+}
+
 });
 
 export {authoptions as GET, authoptions as POST};
