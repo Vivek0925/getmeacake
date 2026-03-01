@@ -66,7 +66,7 @@ const Navbar = () => {
                 </li>
                
                 <li>
-                  <Link href={`/${session.user.name}`} className="block px-4 py-2dark:hover:text-white">Your Page</Link>
+                  <Link href={`/${session.user.name}`} className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Your Page</Link>
                 </li>
                 <li>
                   <Link onClick={()=>{signOut()}} href='/logout' className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">

@@ -38,29 +38,29 @@ export const authoptions = NextAuth({
     // }),
   ],
 
-  callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-      if (account.provider == "github" || account.provider == "google") {
-        await connectDb();
-        // Check if the user already exists in the database
-        const currentUser = await User.findOne({ email: email });
-        if (!currentUser) {
-          // Create a new user
-          const newUser = await User.create({
-            email: user.email,
-            username: user.email.split("@")[0],
-          });
+    callbacks: {
+      async signIn({ user, account, profile, email, credentials }) {
+        if (account.provider == "github" || account.provider == "google") {
+          await connectDb();
+          // Check if the user already exists in the database
+          const currentUser = await User.findOne({ email: user.email });
+          if (!currentUser) {
+            // Create a new user
+            const newUser = await User.create({
+              email: user.email,
+              username: user.email.split("@")[0],
+            });
+          }
+          return true;
         }
-        return true;
-      }
-    },
+      },
 
-    async session({ session, user, token }) {
-      const dbUser = await User.findOne({ email: session.user.email });
-      session.user.name = dbUser.username;
-      return session;
+      async session({ session, user, token }) {
+        const dbUser = await User.findOne({ email: session.user.email });
+        session.user.name = dbUser.username;
+        return session;
+      },
     },
-  },
 });
 
 

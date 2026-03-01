@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <>
       <div>
-        <div className=" hero w-full h-screen bg-cover bg-center flex items-center" style={{ backgroundImage: "url('/home2.jpg')" }}>
+        <div className=" hero w-full h-screen bg-cover bg-center flex items-center" style={{ backgroundImage: "url('/cover.gif')" }}>
 
           <div className="text-white font-extrabold leading-[0.85] text-[8vw] w-full px-10">
             
