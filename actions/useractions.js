@@ -4,7 +4,6 @@ import Payment from "@/models/Payment.js";
 import connectDb from "@/db/connectDb.js";
 import User from "@/models/User.js";
 import { FormSerializerOptions } from './../node_modules/axios/index.d';
-import { name } from "ejs";
 
 export const initiate = async (amount , to_username ,paymentform) => {
     await connectDb();
