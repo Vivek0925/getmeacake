@@ -1,4 +1,3 @@
-import { name } from "ejs";
 import mongoose from "mongoose";
 const { Schema, model } = mongoose;
 const paymentSchema = new Schema({
