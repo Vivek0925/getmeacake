@@ -17,8 +17,7 @@ export const POST = async (req) => {
   }
 
   // fetch the secret of the user who is getting the payment
-  let user = await User.findOne({ username: p.to_user });
-  const secret = user.razorpaysecret;
+   const secret = process.env.KEY_SECRET; 
 
   // Verify the payment
   let xx = validatePaymentVerification(
