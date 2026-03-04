@@ -2,8 +2,9 @@
 import Script from "next/script";
 import React from "react";
 import { initiate } from "@/actions/useractions";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useSession } from "next-auth/react";
+import { fetchuser, fetchpayments } from "@/actions/useractions";
 
 const PaymentPage = ({ username }) => {
   const { data: session } = useSession();
@@ -13,18 +14,32 @@ const PaymentPage = ({ username }) => {
     message: "",
     amount: "",
   });
+
+  const [currentUser, setcurrentUser] = useState({})
+  const [payments, setPayments] = useState([])
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   const handleChange = (e) => {
     setPaymentform({ ...paymentform, [e.target.name]: e.target.value });
   };
+
+  const getData = async () => {
+    let u = await fetchuser(username);
+    setcurrentUser(u);
+    let dbPayments = await fetchpayments(username);
+    setPayments(dbPayments);
+    console.log(dbPayments)
+  }
 
   const pay = async (amount) => {
     let a = await initiate(amount, username, paymentform);
     let orderID = a.id;
 
-    console.log("RAZOR KEY:", process.env.NEXT_PUBLIC_KEY_ID);
-
     var options = {
-      key: process.env.NEXT_PUBLIC_KEY_ID, // Enter the Key ID generated from the Dashboard
+      key: currentUser.razorpayid, // Enter the Key ID generated from the Dashboard
       amount: amount, // Amount is in currency subunits.
       currency: "INR",
       name: "Get Me a Cake", //your business name
@@ -56,7 +71,7 @@ const PaymentPage = ({ username }) => {
       <div className="cover w-full text-black">
         <img
           className="w-full h-[380]"
-          src="https://i.pinimg.com/originals/d0/bf/c7/d0bfc76da6de38f91bcec23efe85082a.gif"
+          src={currentUser.coverpic}
           alt="img loading"
         />
 
@@ -65,7 +80,7 @@ const PaymentPage = ({ username }) => {
             width={120}
             height={120}
             className="rounded-full"
-            src="pfp.jpg"
+            src={currentUser.profilepic}
             alt=""
           />
         </div>
@@ -73,11 +88,11 @@ const PaymentPage = ({ username }) => {
           <div className="font-bold">@{username}</div>
 
           <div className="text-slate-500">
-            Creating a podcast with ben avery, devan costa and jace avery
+            help {username} to get funded by buying them a cake!
           </div>
 
           <div className="text-slate-500">
-            12,348 members . 459 posts . $43,690/month
+            {payments.length} payments . raised ${payments.reduce((total, p) => total + p.amount, 0)}
           </div>
         </div>
 
@@ -85,34 +100,19 @@ const PaymentPage = ({ username }) => {
           <div className="supporters w-1/2 bg-amber-200/20 rounded-lg p-8">
             <h2 className="text-lg font-bold my-3">Supporters</h2>
             <ul className="mx-5">
-              <li className="flex gap-3 my-3 items-center">
-                <img width={37} src="avatar.gif" alt="" />
-                <span>
-                  akash donated <span className="font-bold">50$</span> with a
-                  message ""
-                </span>
-              </li>
-              <li className="flex gap-3 my-3 items-center">
-                <img width={37} src="avatar.gif" alt="" />
-                <span>
-                  akash donated <span className="font-bold">50$</span> with a
-                  message ""
-                </span>
-              </li>
-              <li className="flex gap-3 my-3 items-center">
-                <img width={37} src="avatar.gif" alt="" />
-                <span>
-                  akash donated <span className="font-bold">50$</span> with a
-                  message ""
-                </span>
-              </li>
-              <li className="flex gap-3 my-3 items-center">
-                <img width={37} src="avatar.gif" alt="" />
-                <span>
-                  akash donated <span className="font-bold">50$</span> with a
-                  message ""
-                </span>
-              </li>
+              {payments.length == 0 && <li>No payments yet</li>}
+              {payments.map((p, i) => {
+                return (  
+                  <li key={i} className="flex gap-3 my-3 items-center">
+                    <img width={37} src="avatar.gif" alt="" />
+                    <span>
+                      {p.name} donated{" "}
+                      <span className="font-bold">{p.amount}$ </span> with
+                      a message {p.message}
+                    </span>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
@@ -148,8 +148,16 @@ const PaymentPage = ({ username }) => {
                 placeholder="Enter Amount in USD"
                 className="p-3 w-full rounded-lg bg-slate-300"
               />
-              <button className=" rounded-lg bg-blue-300 p-3 ">Pay</button>
+              <button
+                onClick={() => {
+                  pay(Number.parseInt(paymentform.amount) * 100);
+                }}
+                className=" rounded-lg bg-blue-300 p-3 "
+              >
+                Pay
+              </button>
             </div>
+
             {/* or choose an amount */}
             <div className="flex gap-3 mt-3">
               <button
@@ -168,7 +176,7 @@ const PaymentPage = ({ username }) => {
                 className=" rounded-lg bg-blue-300 p-3 hover:cursor-cell "
                 onClick={() => pay(3000)}
               >
-                30inr   
+                30inr
               </button>
             </div>
           </div>

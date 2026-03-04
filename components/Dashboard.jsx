@@ -2,6 +2,10 @@
 import React, { useEffect, useState } from 'react'
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from 'next/navigation'
+import { fetchuser ,updateProfile } from '@/actions/useractions'
+import 'react-toastify/dist/ReactToastify.css';
+import { Bounce } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Dashboard = () => {
 
@@ -46,6 +50,19 @@ const Dashboard = () => {
         });
     }
   return (
+     <>
+          <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+          />
       <div className='container mx-auto py-3 px-6 '>
           <h1 className='text-center my-15 text-3xl font-bold'>Welcome to your Dashboard</h1>
 
@@ -95,6 +112,7 @@ const Dashboard = () => {
 
 
       </div>
+      </>
   )
 }
 
