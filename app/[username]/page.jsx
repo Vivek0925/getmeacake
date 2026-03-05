@@ -26,3 +26,13 @@ export async function Username({ params }) {
 }
 
 export default Username
+
+// dynamic metadata
+export async function generateMetadata({ params }) {
+  const { username } = await params;
+
+  return {
+    title: `${username} - Get Me A Cake`,
+    description: `Support ${username} by sending them a cake!`,
+  };
+} 

@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Bounce } from 'react-toastify';
 import { ToastContainer, toast } from 'react-toastify';
 
+
 const Dashboard = () => {
 
     const { data: session, update } = useSession()
@@ -14,7 +15,6 @@ const Dashboard = () => {
     const [form, setform] = useState({})
 
     useEffect(() => {
-        console.log(session)
 
         if (!session) {
             router.push('/login')
@@ -117,3 +117,4 @@ const Dashboard = () => {
 }
 
 export default Dashboard
+
