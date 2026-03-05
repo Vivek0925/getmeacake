@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Login from './login/page';
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -31,9 +33,13 @@ export default function Home() {
 
 
       <div className="flex justify-center items-center gap-6">
+        <Link href={"/login"} >
         <button type="button" className="text-white  rounded-2xl bg-linear-to-br from-purple-600 to-blue-500 hover:bg-linear-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5">Start Here</button>
+          </Link>
 
+          <Link href ={"/about"}>
         <button type="button" className="text-white rounded-2xl bg-linear-to-br from-purple-600 to-blue-500 hover:bg-linear-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5">Get Started</button>
+          </Link>
       </div>
 
       </div>
@@ -62,6 +68,16 @@ export default function Home() {
       </div>
 
         <div className="line bg-blue-900 h-1 opacity-10"></div>
+
+        <div className=" container mx-auto pb-32 pt-14 flex flex-col items-center justify-center">
+          <h2 className="text-3xl font-bold text-center mb-14">Learn more about us</h2>
+          {/* Responsive youtube embed  */}
+          <div className="w-[90%] h-[40vh] md:w-[50%] md:h-[40vh] lg:w-[50%] lg:h-[40vh] xl:w-[50%] xl:h-[40vh]">
+            <iframe className="w-full h-full" src="https://www.youtube.com/embed/ojuUnfqnUI0?si=wMUv4DG3ia6Wt4zn" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+
+          </div>
+
+        </div>
         
       </div>
     </>

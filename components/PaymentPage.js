@@ -71,7 +71,7 @@ const PaymentPage = ({ username }) => {
       <div className="cover w-full text-black">
         <img
           className="w-full h-[380]"
-          src={currentUser.coverpic}
+          src={currentUser?.coverpic}
           alt="img loading"
         />
 
@@ -92,7 +92,8 @@ const PaymentPage = ({ username }) => {
           </div>
 
           <div className="text-slate-500">
-            {payments.length} payments . raised ${payments.reduce((total, p) => total + p.amount, 0)}
+            {payments.length} payments . raised $
+            {payments.reduce((total, p) => total + p.amount, 0)}
           </div>
         </div>
 
@@ -102,13 +103,13 @@ const PaymentPage = ({ username }) => {
             <ul className="mx-5">
               {payments.length == 0 && <li>No payments yet</li>}
               {payments.map((p, i) => {
-                return (  
+                return (
                   <li key={i} className="flex gap-3 my-3 items-center">
                     <img width={37} src="avatar.gif" alt="" />
                     <span>
                       {p.name} donated{" "}
-                      <span className="font-bold">{p.amount}$ </span> with
-                      a message {p.message}
+                      <span className="font-bold">{p.amount}$ </span> with a
+                      message {p.message}
                     </span>
                   </li>
                 );
@@ -152,7 +153,12 @@ const PaymentPage = ({ username }) => {
                 onClick={() => {
                   pay(Number.parseInt(paymentform.amount) * 100);
                 }}
-                className=" rounded-lg bg-blue-300 p-3 "
+                className=" rounded-lg bg-blue-300 p-3 disabled:bg-slate-500 disabled:from-purple-100"
+                disabled={
+                  paymentform.name?.length < 3 ||
+                  paymentform.message?.length < 4 ||
+                  paymentform.amount?.length < 1
+                }
               >
                 Pay
               </button>

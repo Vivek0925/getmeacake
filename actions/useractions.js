@@ -8,9 +8,9 @@ import { FormSerializerOptions } from "./../node_modules/axios/index.d";
 export const initiate = async (amount, to_username, paymentform) => {
   await connectDb();
 
-    // fetch the secret of the user who is getting the payment
-    let user = await User.findOne({ username: to_username });
-     const secret = user.razorpaysecret; 
+  // fetch the secret of the user who is getting the payment
+  let user = await User.findOne({ username: to_username });
+  const secret = user.razorpaysecret;
 
   var instance = new Razorpay({
     key_id: user.razorpayid,
@@ -35,7 +35,7 @@ export const initiate = async (amount, to_username, paymentform) => {
   let x = await instance.orders.create(options);
 
   await Payment.create({
-    amount: amount/100,
+    amount: amount / 100,
     to_user: to_username,
     oid: x.id,
     name: paymentform.name,
@@ -54,25 +54,28 @@ export const fetchuser = async (username) => {
 export const fetchpayments = async (username) => {
   await connectDb();
 
- let p = await Payment.find({ to_user: username, done: true })
-   .sort({ amount: -1 })
-   .lean();
+  let p = await Payment.find({ to_user: username, done: true })
+    .sort({ amount: -1 })
+    .lean();
 
- return JSON.parse(JSON.stringify(p));
+  return JSON.parse(JSON.stringify(p));
 };
 
 export const updateProfile = async (data, oldUsername) => {
   await connectDb();
   let ndata = Object.fromEntries(data);
 
-  if(oldUsername !== ndata.username){
-  let u = await User.findOne({ username: ndata.username }).lean();
-  if(u){
-    return { error: "Username already exists" }
+  if (oldUsername !== ndata.username) {
+    let u = await User.findOne({ username: ndata.username }).lean();
+    if (u) {
+      return { error: "Username already exists" };
+    }
+    await User.updateOne({ email: ndata.email }, ndata);
+    await Payment.updateMany(
+      { to_user: oldUsername },
+      { to_user: ndata.username },
+    );
+  } else {
+    await User.updateOne({ email: ndata.email }, ndata);
   }
-  }
-
-  await User.updateOne({ username: oldUsername }, ndata);
-  let updatedUser = await User.findOne({ username: ndata.username }).lean();
-  return JSON.parse(JSON.stringify(updatedUser));
 };

@@ -1,15 +1,22 @@
 "use client";
-import { useSession, signIn, signOut } from "next-auth/react"
-import React from 'react';
+
+import { useSession } from "next-auth/react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 const Login = () => {
-    const { data: session } = useSession()
+    const { data: session, status } = useSession();
     const router = useRouter();
-    if (session) {
-        router.push("/dashboard");
-    }
 
+    useEffect(() => {
+        if (status === "authenticated") {
+            router.replace("/dashboard");
+        }
+    }, [status, router]);
+
+    if (status === "loading") {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="container mx-auto text-black h-[91vh]">
