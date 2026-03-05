@@ -5,9 +5,11 @@ import { initiate } from "@/actions/useractions";
 import { useState,useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { fetchuser, fetchpayments } from "@/actions/useractions";
+import { useRouter } from "next/navigation";
 
 const PaymentPage = ({ username }) => {
-  const { data: session } = useSession();
+  const { data: session ,status } = useSession();
+  const router = useRouter();
 
   const [paymentform, setPaymentform] = useState({
     name: "",
@@ -15,8 +17,17 @@ const PaymentPage = ({ username }) => {
     amount: "",
   });
 
-  const [currentUser, setcurrentUser] = useState({})
-  const [payments, setPayments] = useState([])
+  const [currentUser, setcurrentUser] = useState({});
+  const [payments, setPayments] = useState([]);
+
+  // redirect if logged out
+  useEffect(() => {
+    if (status === "loading") return;
+
+    if (!session) {
+      router.push("/");
+    }
+  }, [session, status, router]);
 
   useEffect(() => {
     getData();
@@ -31,8 +42,8 @@ const PaymentPage = ({ username }) => {
     setcurrentUser(u);
     let dbPayments = await fetchpayments(username);
     setPayments(dbPayments);
-    console.log(dbPayments)
-  }
+    console.log(dbPayments);
+  };
 
   const pay = async (amount) => {
     let a = await initiate(amount, username, paymentform);
@@ -153,7 +164,7 @@ const PaymentPage = ({ username }) => {
                 onClick={() => {
                   pay(Number.parseInt(paymentform.amount) * 100);
                 }}
-                className=" rounded-lg bg-blue-300 p-3 disabled:bg-slate-500 disabled:from-purple-100"
+                className=" rounded-lg bg-blue-300 p-3 disabled:bg-slate-500 disabled:from-purple-800"
                 disabled={
                   paymentform.name?.length < 3 ||
                   paymentform.message?.length < 4 ||
@@ -190,6 +201,6 @@ const PaymentPage = ({ username }) => {
       </div>
     </>
   );
-};
+};;
 
 export default PaymentPage;
